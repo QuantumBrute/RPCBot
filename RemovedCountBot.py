@@ -1,12 +1,20 @@
+#--------------------------
+#Created by u/QuantumBrute
+#--------------------------
+
+
+
 from psaw import PushshiftAPI
 import praw
 import sqlite3
 import time
 import LoginInfo
 
-#Created by u/QuantumBrute
+#-------------------------------------------------------------
 
 limitno = 30000 # Changes the maximum limit of posts to check
+
+#-------------------------------------------------------------
 
 # To change the threshold go to line number 57 and change the number after > sign
 
