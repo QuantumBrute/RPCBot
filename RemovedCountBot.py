@@ -8,13 +8,9 @@ from psaw import PushshiftAPI
 import praw
 import sqlite3
 import time
-import LoginInfo
-
-#-------------------------------------------------------------
+import LoginInfoBot
 
 limitno = 30000 # Changes the maximum limit of posts to check
-
-#-------------------------------------------------------------
 
 # To change the threshold go to line number 57 and change the number after > sign
 
@@ -56,7 +52,10 @@ def removed():
     print("Total number of posts: " + str(numberoftotalposts))
     a = 0 # To count the number of removed posts; intitalized with 0
     for x in range(numberoftotalposts):
-        if result[x].selftext == "[removed]" and result[x].author != "[deleted]": # Checks for removed posts only
+        if result[x].saved:
+            continue
+        elif result[x].selftext == "[removed]" and result[x].author != "[deleted]": # Checks for removed posts only
+            result[x].save()
             c.execute('INSERT INTO RemovedPostsUsernames VALUES (?)', (result[x].author,)) # Inserts the usernames into the table 
             conn.commit() # Dont forget to save!
             a += 1  # +1 to count the number of removed posts everytime it finds a removed post
