@@ -1,8 +1,6 @@
-#--------------------------
-#Created by u/QuantumBrute
-#--------------------------
-
-
+# ------------------------------------------
+# Writtern by u/QuantumBrute
+# ------------------------------------------
 
 from psaw import PushshiftAPI
 import praw
@@ -17,10 +15,10 @@ limitno = 30000 # Changes the maximum limit of posts to check
 print("Starting Bot...")
 
 reddit = praw.Reddit(client_id= LoginInfo.client_id,         
-					 client_secret= LoginInfo.client_secret,
-					 username= LoginInfo.username,
-					 password= LoginInfo.password,
-					 user_agent= LoginInfo.user_agent) # Login to reddit API
+		     client_secret= LoginInfo.client_secret,
+		     username= LoginInfo.username,
+		     password= LoginInfo.password,
+		     user_agent= LoginInfo.user_agent) # Login to reddit API
 
 
 print("Opening SQL database...")
@@ -52,10 +50,10 @@ def removed():
     print("Total number of posts: " + str(numberoftotalposts))
     a = 0 # To count the number of removed posts; intitalized with 0
     for x in range(numberoftotalposts):
-        if result[x].saved:
+        if reddit.submission(result[x].id).saved:
             continue
         elif result[x].selftext == "[removed]" and result[x].author != "[deleted]": # Checks for removed posts only
-            result[x].save()
+            reddit.submission(result[x].id).save()
             c.execute('INSERT INTO RemovedPostsUsernames VALUES (?)', (result[x].author,)) # Inserts the usernames into the table 
             conn.commit() # Dont forget to save!
             a += 1  # +1 to count the number of removed posts everytime it finds a removed post
